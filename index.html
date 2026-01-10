@@ -4,249 +4,307 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Pháp luật TMĐT Việt Nam</title>
+    <title>Pháp luật TMĐT Việt Nam - Modern Theme</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" id="theme">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css" id="theme">
 
     <style>
-        /* Định nghĩa các biến màu sắc */
+        /* --- ĐỊNH NGHĨA BIẾN MÀU SẮC & FONT --- */
         :root {
-            --chu-phong-primary: #003366; /* Màu Xanh Navy đậm cho tiêu đề */
-            --chu-phong-text: #333333;    /* Màu xám đen cho nội dung */
-            --chu-phong-accent: #d9534f;  /* Màu đỏ nhấn cho các lưu ý quan trọng */
+            --bg-primary: #0a192f;  /* Nền xanh navy đậm */
+            --bg-secondary: #172a45; /* Nền phụ chuyển màu */
+            --text-main: #d9e6ff;    /* Màu chữ trắng hơi xanh (dễ đọc hơn trắng tinh) */
+            --accent-cyan: #64ffda;  /* Màu nhấn Xanh ngọc (Cyan) */
+            --header-font: 'Montserrat', sans-serif;
+            --body-font: 'Open Sans', sans-serif;
         }
 
-        /* Tùy chỉnh Font chữ toàn bộ slide */
+        /* --- CẤU HÌNH NỀN & FONT CHUNG --- */
+        body {
+            /* Tạo nền Gradient chuyển màu nhẹ tạo chiều sâu */
+            background: var(--bg-primary);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
         .reveal {
-            font-family: 'Roboto', sans-serif !important;
-            color: var(--chu-phong-text) !important;
+            font-family: var(--body-font) !important;
+            color: var(--text-main) !important;
+            font-size: 32px; /* Tăng cỡ chữ cơ bản lên một chút */
         }
 
-        /* Tùy chỉnh các tiêu đề (H1, H2, H3...) */
-        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-            color: var(--chu-phong-primary) !important;
-            text-transform: none !important; /* Không viết hoa toàn bộ tiêu đề */
-            font-weight: 700 !important;
-            margin-bottom: 30px !important;
+        /* --- TÙY CHỈNH TIÊU ĐỀ (HEADERS) --- */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            font-family: var(--header-font) !important;
+            color: white !important;
+            text-transform: uppercase; /* Viết hoa tiêu đề */
+            letter-spacing: 1px; /* Giãn khoảng cách chữ */
+            font-weight: 800 !important;
         }
-        /* Tiêu đề trang bìa lớn hơn */
-        .reveal h1 { font-size: 2.5em !important; }
-        /* Tiêu đề các trang nội dung */
-        .reveal h2 { font-size: 1.8em !important; border-bottom: 2px solid var(--chu-phong-primary); padding-bottom: 15px; display: inline-block;}
+        
+        /* Tiêu đề chính H1 (Trang bìa) */
+        .reveal h1 {
+            font-size: 2.2em !important;
+            line-height: 1.2 !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Bóng chữ nhẹ */
+        }
+        
+        /* Tiêu đề trang con H2 */
+        .reveal h2 {
+            font-size: 1.6em !important;
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 40px !important;
+        }
+        /* Tạo đường gạch chân hiện đại cho H2 */
+        .reveal h2::after {
+            content: '';
+            position: absolute;
+            left: 50%; /* Canh giữa gạch chân */
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px; /* Chiều dài gạch chân */
+            height: 4px;
+            background: var(--accent-cyan);
+            border-radius: 2px;
+        }
 
-        /* Tùy chỉnh danh sách gạch đầu dòng */
+        /* --- TÙY CHỈNH DANH SÁCH (LISTS) --- */
         .reveal ul {
-            margin-top: 30px;
-            text-align: left;
-            display: inline-block; /* Căn giữa khối danh sách */
+            margin-top: 20px;
+            font-weight: 400;
         }
         .reveal ul li {
-            margin-bottom: 15px; /* Giãn cách giữa các dòng */
-            font-size: 1.1em;
-            line-height: 1.4;
+            margin-bottom: 18px;
+            line-height: 1.5;
+            list-style-type: none; /* Bỏ dấu chấm tròn mặc định */
+            position: relative;
+            padding-left: 25px;
         }
-        /* Màu sắc cho các điểm nhấn mạnh */
-        .highlight-text { color: var(--chu-phong-accent); font-weight: bold; }
-        
-        /* Thanh footer nhỏ ở dưới (tùy chọn) */
+        /* Thay dấu chấm tròn bằng mũi tên màu Cyan */
+        .reveal ul li::before {
+            content: '▹'; /* Ký tự mũi tên */
+            color: var(--accent-cyan);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            top: -2px;
+        }
+        /* List con thụt vào */
+        .reveal ul ul { margin-top: 10px; }
+        .reveal ul ul li { font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;}
+
+
+        /* --- CÁC LỚP TIỆN ÍCH (UTILITIES) --- */
+        /* Màu nhấn mạnh */
+        .highlight-text {
+            color: var(--accent-cyan) !important;
+            font-weight: 600;
+        }
+
+        /* Hộp thông tin trang bìa (Hiệu ứng kính mờ) */
+        .title-box {
+            background: rgba(255, 255, 255, 0.05); /* Nền trắng trong suốt */
+            backdrop-filter: blur(10px); /* Làm mờ nền phía sau */
+            padding: 25px 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Viền mỏng */
+            display: inline-block;
+            margin-top: 60px;
+        }
+
+        /* Footer nhỏ góc dưới */
         .footer-bar {
             position: fixed;
-            bottom: 10px;
-            left: 20px;
+            bottom: 15px;
+            right: 20px;
+            font-family: var(--header-font);
             font-size: 14px;
-            color: #888;
+            color: var(--accent-cyan);
+            opacity: 0.6;
             z-index: 10;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
     </style>
-    </head>
+</head>
 <body>
 
 <div class="reveal">
-    <div class="footer-bar">Pháp luật TMĐT Việt Nam | Chú Phong</div>
+    <div class="footer-bar">Chú Phong | TMĐT 2026</div>
 
     <div class="slides">
 
         <section>
-            <h1>TỔNG QUAN PHÁP LUẬT<br>VỀ THƯƠNG MẠI ĐIỆN TỬ<br>TẠI VIỆT NAM</h1>
-            <p style="margin-top: 50px; font-size: 1.2em;">Người trình bày: Chú Phong</p>
-            <p style="font-size: 0.8em; color: #666;">Tháng 1, 2026</p>
+            <h1>Tổng quan pháp luật<br>Thương mại điện tử<br>Tại Việt Nam</h1>
+            
+            <div class="title-box">
+                <p style="font-size: 1.1em; margin-bottom: 5px; font-weight: 600;">Người trình bày: Chú Phong</p>
+                <p style="font-size: 0.9em; opacity: 0.7;">Tháng 1, 2026</p>
+            </div>
         </section>
 
         <section>
-            <h2>NỘI DUNG CHÍNH</h2>
-            <ul>
+            <h2>Nội dung chính</h2>
+            <ul style="display: inline-block; text-align: left;">
                 <li>Phần 1: Khung khổ pháp lý cơ bản</li>
                 <li>Phần 2: Các chủ thể trong TMĐT</li>
                 <li>Phần 3: Giao dịch và Hợp đồng điện tử</li>
-                <li>Phần 4: Bảo vệ người tiêu dùng & Dữ liệu cá nhân</li>
+                <li>Phần 4: Bảo vệ người tiêu dùng & Dữ liệu</li>
                 <li>Phần 5: Nghĩa vụ thuế & Thách thức</li>
             </ul>
         </section>
 
         <section>
-            <h2>TẠI SAO CẦN NẮM VỮNG?</h2>
+            <h2>Tại sao cần nắm vững?</h2>
             <ul>
-                <li>TMĐT Việt Nam tăng trưởng nóng (quy mô hàng chục tỷ USD).</li>
+                <li>TMĐT Việt Nam tăng trưởng nóng (quy mô chục tỷ USD).</li>
                 <li>Rủi ro pháp lý cao nếu không tuân thủ.</li>
-                <li>Hành lang pháp lý đang ngày càng hoàn thiện và chặt chẽ hơn.</li>
-                <li class="highlight-text">"Hiểu luật để kinh doanh bền vững."</li>
+                <li>Hành lang pháp lý ngày càng chặt chẽ.</li>
+                <li class="highlight-text" style="font-size: 1.3em; margin-top: 30px;">"Hiểu luật để kinh doanh bền vững."</li>
             </ul>
         </section>
 
         <section>
-            <h2>1. HỆ THỐNG VĂN BẢN PHÁP LUẬT CHÍNH</h2>
-            <p style="text-align: left;">Dựa trên nền tảng các Luật sau:</p>
+            <h2 style="font-size: 1.4em !important;">1. Hệ thống văn bản pháp luật</h2>
+            <div style="text-align: left;">
+            <p>Dựa trên nền tảng các Luật sau:</p>
             <ul>
-                <li><strong>Bộ luật Dân sự 2015:</strong> Nền tảng của các giao dịch, hợp đồng.</li>
-                <li><strong>Luật Thương mại 2005:</strong> Quy định về hoạt động xúc tiến thương mại.</li>
-                <li><strong>Luật Giao dịch điện tử 2023 (Mới):</strong> Hiệu lực từ 01/07/2024, thay thế Luật 2005.</li>
+                <li><strong>Bộ luật Dân sự 2015:</strong> Nền tảng giao dịch.</li>
+                <li><strong>Luật Thương mại 2005:</strong> Hoạt động xúc tiến.</li>
+                <li><strong class="highlight-text">Luật Giao dịch điện tử 2023 (Mới):</strong> Hiệu lực 01/07/2024.</li>
                 <li><strong>Luật An ninh mạng 2018.</strong></li>
                 <li><strong>Luật Bảo vệ quyền lợi người tiêu dùng 2023.</strong></li>
             </ul>
+            </div>
         </section>
 
         <section>
-            <h2>CÁC NGHỊ ĐỊNH QUAN TRỌNG</h2>
+            <h2>Các Nghị định quan trọng</h2>
             <ul>
                 <li><strong>Nghị định 52/2013/NĐ-CP:</strong> Văn bản gốc về TMĐT.</li>
-                <li><strong>Nghị định 85/2021/NĐ-CP:</strong> Sửa đổi, bổ sung NĐ 52, siết chặt quản lý nền tảng xuyên biên giới.</li>
-                <li><strong>Nghị định 13/2023/NĐ-CP:</strong> Về bảo vệ dữ liệu cá nhân (Rất quan trọng).</li>
-                <li><strong>Nghị định 91/2022/NĐ-CP:</strong> Sửa đổi các nghị định về thuế (liên quan đến sàn TMĐT).</li>
+                <li><strong>Nghị định 85/2021/NĐ-CP:</strong> Sửa đổi NĐ 52, quản lý nền tảng xuyên biên giới.</li>
+                <li><strong class="highlight-text">Nghị định 13/2023/NĐ-CP:</strong> Về bảo vệ dữ liệu cá nhân (Rất quan trọng).</li>
+                <li><strong>Nghị định 91/2022/NĐ-CP:</strong> Về thuế sàn TMĐT.</li>
             </ul>
         </section>
 
         <section>
-            <h2>2. CÁC CHỦ THỂ THAM GIA TMĐT</h2>
+            <h2>2. Các chủ thể tham gia</h2>
             <ul>
-                <li><strong>Thương nhân, tổ chức, cá nhân bán hàng:</strong> Người bán trực tiếp.</li>
-                <li><strong>Khách hàng/Người tiêu dùng:</strong> Người mua.</li>
-                <li><strong>Thương nhân, tổ chức cung cấp dịch vụ TMĐT:</strong>
+                <li>Thương nhân, tổ chức, cá nhân bán hàng.</li>
+                <li>Khách hàng/Người tiêu dùng.</li>
+                <li>Thương nhân cung cấp hạ tầng:
                     <ul>
-                        <li>Chủ sở hữu website TMĐT bán hàng.</li>
-                        <li>Chủ sở hữu sàn giao dịch TMĐT (Shopee, Lazada...).</li>
+                        <li>Chủ sở hữu website bán hàng.</li>
+                        <li>Chủ sở hữu sàn giao dịch (Shopee, Lazada...).</li>
                     </ul>
                 </li>
             </ul>
         </section>
 
         <section>
-            <h2>TRÁCH NHIỆM CỦA NGƯỜI BÁN</h2>
+            <h2>Trách nhiệm người bán</h2>
             <ul>
-                <li>Cung cấp thông tin đầy đủ về người bán (tên, địa chỉ, số ĐKKD...).</li>
-                <li>Cung cấp thông tin chính xác về hàng hóa, dịch vụ.</li>
-                <li>Công bố rõ ràng các chính sách: vận chuyển, đổi trả, bảo hành.</li>
-                <li>Đảm bảo tính hợp pháp của hàng hóa (không bán hàng giả, hàng cấm).</li>
+                <li>Cung cấp thông tin định danh đầy đủ.</li>
+                <li>Thông tin chính xác về hàng hóa, dịch vụ.</li>
+                <li>Công bố rõ ràng các chính sách (đổi trả, bảo hành).</li>
+                <li>Đảm bảo tính hợp pháp của hàng hóa.</li>
             </ul>
         </section>
 
         <section>
-            <h2>TRÁCH NHIỆM CỦA SÀN TMĐT (NĐ 85/2021)</h2>
+            <h2>Trách nhiệm Sàn TMĐT (NĐ 85)</h2>
             <ul>
                 <li>Phải đăng ký với Bộ Công Thương.</li>
-                <li>Có cơ chế kiểm tra, giám sát thông tin người bán.</li>
-                <li>Phối hợp với cơ quan chức năng để loại bỏ hàng giả, hàng nhái.</li>
-                <li>Cung cấp thông tin người bán cho cơ quan thuế khi được yêu cầu.</li>
-                <li class="highlight-text">Trách nhiệm liên đới nếu không thực hiện nghĩa vụ giám sát.</li>
+                <li>Cơ chế kiểm tra, giám sát thông tin người bán.</li>
+                <li>Phối hợp loại bỏ hàng giả, hàng nhái.</li>
+                <li>Cung cấp thông tin cho cơ quan thuế.</li>
+                <li class="highlight-text">Chịu trách nhiệm liên đới nếu buông lỏng quản lý.</li>
             </ul>
         </section>
 
         <section>
-            <h2>3. HỢP ĐỒNG ĐIỆN TỬ</h2>
+            <h2>3. Hợp đồng điện tử</h2>
             <ul>
-                <li><strong>Giá trị pháp lý:</strong> Hợp đồng điện tử có giá trị pháp lý tương đương hợp đồng truyền thống (văn bản, lời nói) nếu đáp ứng đủ điều kiện.</li>
-                <li><strong>Thời điểm giao kết:</strong> Thường là lúc người mua nhận được xác nhận đơn hàng hợp lệ từ hệ thống.</li>
-                <li>Cần quy định rõ ràng về quy trình "Đặt hàng" và "Xác nhận".</li>
+                <li><strong>Giá trị pháp lý:</strong> Tương đương văn bản truyền thống nếu đủ điều kiện.</li>
+                <li><strong>Thời điểm giao kết:</strong> Thường khi người mua nhận được xác nhận hợp lệ.</li>
+                <li>Cần quy định rõ quy trình "Đặt hàng" & "Xác nhận".</li>
             </ul>
         </section>
 
         <section>
-            <h2>CHỮ KÝ ĐIỆN TỬ & XÁC THỰC</h2>
+            <h2>Chữ ký điện tử & Xác thực</h2>
+            <p>Luật Giao dịch điện tử 2023 mở rộng hình thức:</p>
             <ul>
-                <li>Luật Giao dịch điện tử 2023 mở rộng phạm vi và hình thức chữ ký điện tử.</li>
-                <li>Không chỉ là USB Token, mà còn là mã OTP, sinh trắc học, xác thực qua ứng dụng ngân hàng...</li>
-                <li>Đảm bảo tính toàn vẹn và tính xác thực của người ký.</li>
+                <li>Không chỉ là USB Token.</li>
+                <li>Bao gồm: OTP, Sinh trắc học (vân tay, khuôn mặt), xác thực qua App ngân hàng...</li>
+                <li class="highlight-text">Mục tiêu: Đảm bảo tính toàn vẹn & xác thực.</li>
             </ul>
         </section>
 
         <section>
-            <h2>4. BẢO VỆ QUYỀN LỢI NGƯỜI TIÊU DÙNG</h2>
-            <p>(Theo Luật BVQLNTD 2023)</p>
+            <h2>4. Bảo vệ người tiêu dùng</h2>
             <ul>
                 <li>Quyền được cung cấp thông tin chính xác.</li>
-                <li>Quyền lựa chọn và quyết định mua hàng mà không bị ép buộc.</li>
-                <li>Bảo vệ thông tin cá nhân của người tiêu dùng.</li>
-                <li>Cơ chế giải quyết khiếu nại trực tuyến phải rõ ràng.</li>
+                <li>Quyền lựa chọn không bị ép buộc.</li>
+                <li>An toàn thông tin cá nhân.</li>
+                <li>Cơ chế giải quyết khiếu nại trực tuyến rõ ràng.</li>
             </ul>
         </section>
 
         <section>
-            <h2>BẢO VỆ DỮ LIỆU CÁ NHÂN (NĐ 13/2023)</h2>
-            <p class="highlight-text">Đây là vấn đề nóng nhất hiện nay!</p>
+            <h2>Bảo vệ dữ liệu cá nhân (NĐ 13)</h2>
+            <h4 class="highlight-text" style="text-transform: none;">Vấn đề nóng nhất hiện nay!</h4>
             <ul>
                 <li>Doanh nghiệp TMĐT là bên "Kiểm soát và xử lý dữ liệu".</li>
-                <li><strong>Nguyên tắc vàng:</strong> Phải có sự ĐỒNG Ý của chủ thể dữ liệu trước khi thu thập, xử lý.</li>
-                <li>Phải có chính sách bảo mật thông tin rõ ràng.</li>
-                <li>Tuân thủ các quy định về lưu trữ và chia sẻ dữ liệu cho bên thứ 3.</li>
+                <li><strong class="highlight-text">Nguyên tắc vàng:</strong> Phải có sự ĐỒNG Ý của chủ thể dữ liệu.</li>
+                <li>Phải có chính sách bảo mật rõ ràng.</li>
+                <li>Tuân thủ quy định lưu trữ và chia sẻ cho bên thứ 3.</li>
             </ul>
         </section>
 
         <section>
-            <h2>5. NGHĨA VỤ THUẾ TRONG TMĐT</h2>
+            <h2>5. Nghĩa vụ thuế TMĐT</h2>
             <ul>
-                <li>Nguyên tắc: Kinh doanh trên nền tảng số vẫn phải nộp thuế như kinh doanh truyền thống.</li>
-                <li><strong>Đối với cá nhân kinh doanh:</strong> Nộp thuế TNCN và GTGT nếu doanh thu trên 100 triệu đồng/năm.</li>
-                <li><strong>Vai trò của Sàn (NĐ 91/2022):</strong> Sàn có trách nhiệm khai thay, nộp thay thuế cho cá nhân kinh doanh trên sàn (theo lộ trình của Tổng cục Thuế).</li>
+                <li><strong>Nguyên tắc:</strong> Kinh doanh online nộp thuế như truyền thống.</li>
+                <li><strong>Cá nhân kinh doanh:</strong> Nộp thuế nếu doanh thu > 100 triệu/năm.</li>
+                <li><strong>Vai trò của Sàn (NĐ 91):</strong> Sàn có trách nhiệm khai thay, nộp thay thuế cho cá nhân (theo lộ trình).</li>
             </ul>
         </section>
 
         <section>
-            <h2>QUẢN LÝ THUẾ VỚI NỀN TẢNG XUYÊN BIÊN GIỚI</h2>
+            <h2>Thách thức pháp lý</h2>
             <ul>
-                <li>Các "ông lớn" (Google, Facebook, Netflix...) đã phải đăng ký, kê khai và nộp thuế tại Việt Nam qua cổng thông tin điện tử dành cho nhà cung cấp nước ngoài.</li>
-                <li>Tăng cường công bằng giữa doanh nghiệp trong nước và nước ngoài.</li>
+                <li>Truy xuất nguồn gốc hàng hóa (hàng xách tay).</li>
+                <li>Xử lý tranh chấp xuyên biên giới.</li>
+                <li>Công nghệ (AI, Blockchain) thay đổi nhanh hơn luật.</li>
             </ul>
         </section>
 
         <section>
-            <h2>CÁC HÀNH VI BỊ CẤM PHỔ BIẾN</h2>
+            <h2>Kết luận</h2>
             <ul>
-                <li>Kinh doanh hàng giả, hàng nhái, hàng cấm trên không gian mạng.</li>
-                <li>Lợi dụng TMĐT để lừa đảo, chiếm đoạt tài sản.</li>
-                <li>Thu thập, sử dụng trái phép thông tin cá nhân người khác.</li>
-                <li>Quảng cáo sai sự thật, cạnh tranh không lành mạnh.</li>
+                <li class="highlight-text">Tuân thủ pháp luật là nền tảng phát triển bền vững.</li>
+                <li>Cần thường xuyên cập nhật quy định mới (Luật GDĐT 2023, NĐ 13).</li>
+                <li>Xây dựng quy trình chuẩn chỉnh ngay từ đầu.</li>
             </ul>
         </section>
 
-        <section>
-            <h2>THÁCH THỨC PHÁP LÝ HIỆN NAY</h2>
-            <ul>
-                <li>Khó khăn trong việc truy xuất nguồn gốc hàng hóa (đặc biệt hàng xách tay, đặt qua mạng xã hội).</li>
-                <li>Xử lý tranh chấp xuyên biên giới phức tạp.</li>
-                <li>Công nghệ thay đổi quá nhanh (AI, Blockchain) khiến luật pháp đôi khi chưa theo kịp.</li>
-            </ul>
+        <section data-background-gradient="linear-gradient(to bottom right, #0a192f, #00d2ff)">
+            <h1>Q & A</h1>
+            <p>Hỏi đáp cùng Chú Phong</p>
         </section>
 
         <section>
-            <h2>KẾT LUẬN</h2>
-            <ul>
-                <li>Tuân thủ pháp luật là nền tảng cho sự phát triển bền vững của doanh nghiệp TMĐT.</li>
-                <li>Cần thường xuyên cập nhật các quy định mới (Đặc biệt là Luật GDĐT 2023 và NĐ 13 về dữ liệu).</li>
-                <li>Hãy xây dựng quy trình kinh doanh chuẩn chỉnh ngay từ đầu.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>HỎI ĐÁP</h2>
-            <p style="font-size: 1.5em; margin-top: 50px;">Q & A</p>
-        </section>
-
-        <section>
-            <h1>XIN CHÂN THÀNH CẢM ƠN!</h1>
-            <p>Thông tin liên hệ: Chú Phong</p>
+            <h1 class="highlight-text">Xin cảm ơn!</h1>
+            <div class="title-box" style="margin-top: 30px;">
+                Contact: Chú Phong
+            </div>
         </section>
 
     </div>
@@ -254,14 +312,15 @@
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
 <script>
-    // Khởi tạo Reveal.js với các cấu hình cơ bản
     Reveal.initialize({
-        hash: true, // Tạo đường dẫn riêng cho từng slide
-        slideNumber: true, // Hiện số trang
-        controls: true, // Hiện nút điều hướng
-        progress: true, // Hiện thanh tiến trình
-        center: true, // Căn giữa nội dung theo chiều dọc
-        transition: 'slide' // Hiệu ứng chuyển slide: none/fade/slide/convex/concave/zoom
+        hash: true,
+        slideNumber: 'c/t', // Hiện số trang kiểu 1/20
+        controls: true,
+        progress: true,
+        center: true,
+        // Đổi hiệu ứng chuyển slide sang dạng khối lập phương 3D cho hiện đại
+        transition: 'convex', // Thử các loại: 'fade', 'slide', 'convex', 'concave', 'zoom'
+        transitionSpeed: 'slow'
     });
 </script>
 </body>
