@@ -1,327 +1,314 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <title>Pháp luật TMĐT Việt Nam - Modern Theme</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css" id="theme">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pháp Luật TMĐT - Chú Phong</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- ĐỊNH NGHĨA BIẾN MÀU SẮC & FONT --- */
+        /* --- 2. THIẾT LẬP GIAO DIỆN CAO CẤP --- */
         :root {
-            --bg-primary: #0a192f;  /* Nền xanh navy đậm */
-            --bg-secondary: #172a45; /* Nền phụ chuyển màu */
-            --text-main: #d9e6ff;    /* Màu chữ trắng hơi xanh (dễ đọc hơn trắng tinh) */
-            --accent-cyan: #64ffda;  /* Màu nhấn Xanh ngọc (Cyan) */
-            --header-font: 'Montserrat', sans-serif;
-            --body-font: 'Open Sans', sans-serif;
+            --primary: #00d2ff;       /* Xanh Cyan sáng */
+            --secondary: #3a7bd5;     /* Xanh biển */
+            --accent: #ff007a;        /* Hồng Neon điểm nhấn */
+            --bg-dark: #0f172a;       /* Nền xanh đen sâu */
+            --bg-card: #1e293b;       /* Nền khối */
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --gradient-btn: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
         }
 
-        /* --- CẤU HÌNH NỀN & FONT CHUNG --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
         body {
-            /* Tạo nền Gradient chuyển màu nhẹ tạo chiều sâu */
-            background: var(--bg-primary);
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-        }
-        .reveal {
-            font-family: var(--body-font) !important;
-            color: var(--text-main) !important;
-            font-size: 32px; /* Tăng cỡ chữ cơ bản lên một chút */
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
         }
 
-        /* --- TÙY CHỈNH TIÊU ĐỀ (HEADERS) --- */
-        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
-            font-family: var(--header-font) !important;
-            color: white !important;
-            text-transform: uppercase; /* Viết hoa tiêu đề */
-            letter-spacing: 1px; /* Giãn khoảng cách chữ */
-            font-weight: 800 !important;
+        /* Thanh cuộn tùy chỉnh */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 5px; }
+
+        /* --- HEADER / NAV --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px); /* Kính mờ */
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
+        .nav-links a { margin-left: 30px; text-decoration: none; color: var(--text-light); font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
         
-        /* Tiêu đề chính H1 (Trang bìa) */
-        .reveal h1 {
-            font-size: 2.2em !important;
-            line-height: 1.2 !important;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Bóng chữ nhẹ */
+        .btn-nav {
+            padding: 10px 25px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
         }
-        
-        /* Tiêu đề trang con H2 */
-        .reveal h2 {
-            font-size: 1.6em !important;
+        .btn-nav:hover { background: var(--primary); color: #fff; box-shadow: 0 0 15px var(--primary); }
+
+        /* --- HERO SECTION (PHẦN MỞ ĐẦU) --- */
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
             position: relative;
-            padding-bottom: 15px;
-            margin-bottom: 40px !important;
         }
-        /* Tạo đường gạch chân hiện đại cho H2 */
-        .reveal h2::after {
+        /* Hiệu ứng nền lưới */
+        header::before {
             content: '';
             position: absolute;
-            left: 50%; /* Canh giữa gạch chân */
-            bottom: 0;
-            transform: translateX(-50%);
-            width: 80px; /* Chiều dài gạch chân */
-            height: 4px;
-            background: var(--accent-cyan);
-            border-radius: 2px;
+            width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
         }
 
-        /* --- TÙY CHỈNH DANH SÁCH (LISTS) --- */
-        .reveal ul {
-            margin-top: 20px;
-            font-weight: 400;
-        }
-        .reveal ul li {
-            margin-bottom: 18px;
-            line-height: 1.5;
-            list-style-type: none; /* Bỏ dấu chấm tròn mặc định */
-            position: relative;
-            padding-left: 25px;
-        }
-        /* Thay dấu chấm tròn bằng mũi tên màu Cyan */
-        .reveal ul li::before {
-            content: '▹'; /* Ký tự mũi tên */
-            color: var(--accent-cyan);
-            position: absolute;
-            left: 0;
-            font-size: 1.2em;
-            top: -2px;
-        }
-        /* List con thụt vào */
-        .reveal ul ul { margin-top: 10px; }
-        .reveal ul ul li { font-size: 0.9em; opacity: 0.9; margin-bottom: 10px;}
-
-
-        /* --- CÁC LỚP TIỆN ÍCH (UTILITIES) --- */
-        /* Màu nhấn mạnh */
-        .highlight-text {
-            color: var(--accent-cyan) !important;
-            font-weight: 600;
-        }
-
-        /* Hộp thông tin trang bìa (Hiệu ứng kính mờ) */
-        .title-box {
-            background: rgba(255, 255, 255, 0.05); /* Nền trắng trong suốt */
-            backdrop-filter: blur(10px); /* Làm mờ nền phía sau */
-            padding: 25px 40px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Viền mỏng */
+        .hero-content { z-index: 10; padding: 0 20px; }
+        .badge {
             display: inline-block;
-            margin-top: 60px;
+            padding: 8px 16px;
+            background: rgba(0, 210, 255, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid var(--primary);
+        }
+        h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-desc { font-size: 1.2rem; color: var(--text-gray); max-width: 600px; margin: 0 auto 40px; }
+        
+        .btn-group { display: flex; justify-content: center; gap: 20px; }
+        .btn-primary {
+            padding: 15px 40px;
+            background: var(--gradient-btn);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3); }
+        .btn-outline {
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+
+        /* --- DASHBOARD GRID (CÁC KHỐI NỘI DUNG) --- */
+        .container { max-width: 1200px; margin: 100px auto; padding: 0 20px; }
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            border-left: 5px solid var(--accent);
+            padding-left: 20px;
         }
 
-        /* Footer nhỏ góc dưới */
-        .footer-bar {
-            position: fixed;
-            bottom: 15px;
-            right: 20px;
-            font-family: var(--header-font);
-            font-size: 14px;
-            color: var(--accent-cyan);
-            opacity: 0.6;
-            z-index: 10;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Thiết kế từng Khối (Card) */
+        .card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        /* Hiệu ứng nền mờ trong card */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .card:hover::before { opacity: 1; }
+
+        .icon-box {
+            width: 60px; height: 60px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        .card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .card p { color: var(--text-gray); line-height: 1.6; margin-bottom: 20px; font-size: 0.95rem; }
+        .card-link {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .card-link:hover i { transform: translateX(5px); transition: 0.3s; }
+
+        /* Card đặc biệt (Span 2 cột) */
+        .card-wide { grid-column: span 2; background: linear-gradient(135deg, #1e293b 0%, #243b55 100%); }
+        .card-accent { border: 1px solid var(--accent); }
+        .card-accent .icon-box { color: var(--accent); background: rgba(255, 0, 122, 0.1); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 100px;
+            color: var(--text-gray);
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .card-wide { grid-column: span 1; }
+            .btn-group { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-<div class="reveal">
-    <div class="footer-bar">Chú Phong | TMĐT 2026</div>
+    <nav>
+        <div class="logo"><i class="fa-solid fa-scale-balanced"></i> LUẬT TMĐT</div>
+        <div class="nav-links">
+            <button class="btn-nav">Tải tài liệu</button>
+        </div>
+    </nav>
 
-    <div class="slides">
+    <header>
+        <div class="hero-content" data-aos="fade-up">
+            <span class="badge">Phiên bản 2026</span>
+            <h1>PHÁP LUẬT<br>THƯƠNG MẠI ĐIỆN TỬ</h1>
+            <p class="hero-desc">Hệ thống kiến thức pháp lý toàn diện, cập nhật mới nhất dành cho doanh nghiệp và cá nhân kinh doanh tại Việt Nam.</p>
+            <div class="btn-group">
+                <button class="btn-primary" onclick="document.getElementById('content-area').scrollIntoView({behavior: 'smooth'})">
+                    <i class="fa-solid fa-rocket"></i> Khám phá ngay
+                </button>
+                <button class="btn-outline">
+                    <i class="fa-brands fa-youtube"></i> Xem Video
+                </button>
+            </div>
+        </div>
+    </header>
 
-        <section>
-            <h1>Tổng quan pháp luật<br>Thương mại điện tử<br>Tại Việt Nam</h1>
+    <div class="container" id="content-area">
+        <h2 class="section-title" data-aos="fade-right">Chủ đề trọng tâm</h2>
+        
+        <div class="bento-grid">
             
-            <div class="title-box">
-                <p style="font-size: 1.1em; margin-bottom: 5px; font-weight: 600;">Người trình bày: Chú Phong</p>
-                <p style="font-size: 0.9em; opacity: 0.7;">Tháng 1, 2026</p>
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon-box"><i class="fa-solid fa-gavel"></i></div>
+                <h3>Văn bản Pháp luật</h3>
+                <p>Hệ thống luật nền tảng: Luật Giao dịch điện tử 2023, Luật Bảo vệ quyền lợi người tiêu dùng, Luật An ninh mạng.</p>
+                <a href="#" class="card-link">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
-        </section>
 
-        <section>
-            <h2>Nội dung chính</h2>
-            <ul style="display: inline-block; text-align: left;">
-                <li>Phần 1: Khung khổ pháp lý cơ bản</li>
-                <li>Phần 2: Các chủ thể trong TMĐT</li>
-                <li>Phần 3: Giao dịch và Hợp đồng điện tử</li>
-                <li>Phần 4: Bảo vệ người tiêu dùng & Dữ liệu</li>
-                <li>Phần 5: Nghĩa vụ thuế & Thách thức</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Tại sao cần nắm vững?</h2>
-            <ul>
-                <li>TMĐT Việt Nam tăng trưởng nóng (quy mô chục tỷ USD).</li>
-                <li>Rủi ro pháp lý cao nếu không tuân thủ.</li>
-                <li>Hành lang pháp lý ngày càng chặt chẽ.</li>
-                <li class="highlight-text" style="font-size: 1.3em; margin-top: 30px;">"Hiểu luật để kinh doanh bền vững."</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2 style="font-size: 1.4em !important;">1. Hệ thống văn bản pháp luật</h2>
-            <div style="text-align: left;">
-            <p>Dựa trên nền tảng các Luật sau:</p>
-            <ul>
-                <li><strong>Bộ luật Dân sự 2015:</strong> Nền tảng giao dịch.</li>
-                <li><strong>Luật Thương mại 2005:</strong> Hoạt động xúc tiến.</li>
-                <li><strong class="highlight-text">Luật Giao dịch điện tử 2023 (Mới):</strong> Hiệu lực 01/07/2024.</li>
-                <li><strong>Luật An ninh mạng 2018.</strong></li>
-                <li><strong>Luật Bảo vệ quyền lợi người tiêu dùng 2023.</strong></li>
-            </ul>
+            <div class="card card-wide card-accent" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 style="color: var(--accent)">Bảo vệ Dữ liệu Cá nhân (NĐ 13)</h3>
+                <p>Quy định khắt khe nhất hiện nay về việc thu thập, xử lý dữ liệu khách hàng. Doanh nghiệp bắt buộc phải có sự ĐỒNG Ý của người dùng.</p>
+                <button class="btn-nav" style="width: fit-content; border-color: var(--accent); color: var(--accent);">Tìm hiểu ngay</button>
             </div>
-        </section>
 
-        <section>
-            <h2>Các Nghị định quan trọng</h2>
-            <ul>
-                <li><strong>Nghị định 52/2013/NĐ-CP:</strong> Văn bản gốc về TMĐT.</li>
-                <li><strong>Nghị định 85/2021/NĐ-CP:</strong> Sửa đổi NĐ 52, quản lý nền tảng xuyên biên giới.</li>
-                <li><strong class="highlight-text">Nghị định 13/2023/NĐ-CP:</strong> Về bảo vệ dữ liệu cá nhân (Rất quan trọng).</li>
-                <li><strong>Nghị định 91/2022/NĐ-CP:</strong> Về thuế sàn TMĐT.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>2. Các chủ thể tham gia</h2>
-            <ul>
-                <li>Thương nhân, tổ chức, cá nhân bán hàng.</li>
-                <li>Khách hàng/Người tiêu dùng.</li>
-                <li>Thương nhân cung cấp hạ tầng:
-                    <ul>
-                        <li>Chủ sở hữu website bán hàng.</li>
-                        <li>Chủ sở hữu sàn giao dịch (Shopee, Lazada...).</li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Trách nhiệm người bán</h2>
-            <ul>
-                <li>Cung cấp thông tin định danh đầy đủ.</li>
-                <li>Thông tin chính xác về hàng hóa, dịch vụ.</li>
-                <li>Công bố rõ ràng các chính sách (đổi trả, bảo hành).</li>
-                <li>Đảm bảo tính hợp pháp của hàng hóa.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Trách nhiệm Sàn TMĐT (NĐ 85)</h2>
-            <ul>
-                <li>Phải đăng ký với Bộ Công Thương.</li>
-                <li>Cơ chế kiểm tra, giám sát thông tin người bán.</li>
-                <li>Phối hợp loại bỏ hàng giả, hàng nhái.</li>
-                <li>Cung cấp thông tin cho cơ quan thuế.</li>
-                <li class="highlight-text">Chịu trách nhiệm liên đới nếu buông lỏng quản lý.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>3. Hợp đồng điện tử</h2>
-            <ul>
-                <li><strong>Giá trị pháp lý:</strong> Tương đương văn bản truyền thống nếu đủ điều kiện.</li>
-                <li><strong>Thời điểm giao kết:</strong> Thường khi người mua nhận được xác nhận hợp lệ.</li>
-                <li>Cần quy định rõ quy trình "Đặt hàng" & "Xác nhận".</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Chữ ký điện tử & Xác thực</h2>
-            <p>Luật Giao dịch điện tử 2023 mở rộng hình thức:</p>
-            <ul>
-                <li>Không chỉ là USB Token.</li>
-                <li>Bao gồm: OTP, Sinh trắc học (vân tay, khuôn mặt), xác thực qua App ngân hàng...</li>
-                <li class="highlight-text">Mục tiêu: Đảm bảo tính toàn vẹn & xác thực.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>4. Bảo vệ người tiêu dùng</h2>
-            <ul>
-                <li>Quyền được cung cấp thông tin chính xác.</li>
-                <li>Quyền lựa chọn không bị ép buộc.</li>
-                <li>An toàn thông tin cá nhân.</li>
-                <li>Cơ chế giải quyết khiếu nại trực tuyến rõ ràng.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Bảo vệ dữ liệu cá nhân (NĐ 13)</h2>
-            <h4 class="highlight-text" style="text-transform: none;">Vấn đề nóng nhất hiện nay!</h4>
-            <ul>
-                <li>Doanh nghiệp TMĐT là bên "Kiểm soát và xử lý dữ liệu".</li>
-                <li><strong class="highlight-text">Nguyên tắc vàng:</strong> Phải có sự ĐỒNG Ý của chủ thể dữ liệu.</li>
-                <li>Phải có chính sách bảo mật rõ ràng.</li>
-                <li>Tuân thủ quy định lưu trữ và chia sẻ cho bên thứ 3.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>5. Nghĩa vụ thuế TMĐT</h2>
-            <ul>
-                <li><strong>Nguyên tắc:</strong> Kinh doanh online nộp thuế như truyền thống.</li>
-                <li><strong>Cá nhân kinh doanh:</strong> Nộp thuế nếu doanh thu > 100 triệu/năm.</li>
-                <li><strong>Vai trò của Sàn (NĐ 91):</strong> Sàn có trách nhiệm khai thay, nộp thay thuế cho cá nhân (theo lộ trình).</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Thách thức pháp lý</h2>
-            <ul>
-                <li>Truy xuất nguồn gốc hàng hóa (hàng xách tay).</li>
-                <li>Xử lý tranh chấp xuyên biên giới.</li>
-                <li>Công nghệ (AI, Blockchain) thay đổi nhanh hơn luật.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Kết luận</h2>
-            <ul>
-                <li class="highlight-text">Tuân thủ pháp luật là nền tảng phát triển bền vững.</li>
-                <li>Cần thường xuyên cập nhật quy định mới (Luật GDĐT 2023, NĐ 13).</li>
-                <li>Xây dựng quy trình chuẩn chỉnh ngay từ đầu.</li>
-            </ul>
-        </section>
-
-        <section data-background-gradient="linear-gradient(to bottom right, #0a192f, #00d2ff)">
-            <h1>Q & A</h1>
-            <p>Hỏi đáp cùng Chú Phong</p>
-        </section>
-
-        <section>
-            <h1 class="highlight-text">Xin cảm ơn!</h1>
-            <div class="title-box" style="margin-top: 30px;">
-                Contact: Chú Phong
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box"><i class="fa-solid fa-store"></i></div>
+                <h3>Trách nhiệm Sàn</h3>
+                <p>Nghị định 85/2021: Sàn phải công khai thông tin người bán, lọc hàng giả và chịu trách nhiệm liên đới.</p>
+                <a href="#" class="card-link">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
-        </section>
 
+            <div class="card" data-aos="fade-up" data-aos-delay="400">
+                <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>Nghĩa vụ Thuế</h3>
+                <p>Quy định về việc Sàn TMĐT khai thay, nộp thay thuế cho cá nhân kinh doanh (NĐ 91/2022).</p>
+                <a href="#" class="card-link">Xem biểu thuế <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="500">
+                <div class="icon-box"><i class="fa-solid fa-file-signature"></i></div>
+                <h3>Hợp đồng điện tử</h3>
+                <p>Giá trị pháp lý của chữ ký số, OTP, xác thực sinh trắc học trong giao kết hợp đồng online.</p>
+                <a href="#" class="card-link">Quy trình ký <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="600">
+                <div class="icon-box"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h3>Chế tài Xử phạt</h3>
+                <p>Các mức phạt vi phạm hành chính trong lĩnh vực TMĐT, quảng cáo sai sự thật và hàng giả.</p>
+                <a href="#" class="card-link">Tra cứu mức phạt <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
-<script>
-    Reveal.initialize({
-        hash: true,
-        slideNumber: 'c/t', // Hiện số trang kiểu 1/20
-        controls: true,
-        progress: true,
-        center: true,
-        // Đổi hiệu ứng chuyển slide sang dạng khối lập phương 3D cho hiện đại
-        transition: 'convex', // Thử các loại: 'fade', 'slide', 'convex', 'concave', 'zoom'
-        transitionSpeed: 'slow'
-    });
-</script>
+    <footer>
+        <p style="font-size: 1.2rem; margin-bottom: 10px; font-weight: bold;">CHÚ PHONG LEGAL</p>
+        <p>© 2026 Bản quyền thuộc về Chú Phong. Thiết kế cho mục đích đào tạo.</p>
+        <div style="margin-top: 20px; font-size: 1.5rem;">
+            <i class="fa-brands fa-facebook" style="margin: 0 10px; cursor: pointer;"></i>
+            <i class="fa-brands fa-tiktok" style="margin: 0 10px; cursor: pointer;"></i>
+            <i class="fa-solid fa-envelope" style="margin: 0 10px; cursor: pointer;"></i>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Kích hoạt thư viện Animation
+        AOS.init({
+            duration: 1000, // Thời gian chạy hiệu ứng (ms)
+            once: true,     // Chỉ chạy 1 lần khi cuộn xuống
+        });
+    </script>
 </body>
 </html>
