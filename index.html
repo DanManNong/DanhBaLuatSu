@@ -1,314 +1,339 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pháp Luật TMĐT - Chú Phong</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lớp LHS-TTHS Ứng dụng K39 - ULAW 2025</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 
-    <style>
-        /* --- 2. THIẾT LẬP GIAO DIỆN CAO CẤP --- */
-        :root {
-            --primary: #00d2ff;       /* Xanh Cyan sáng */
-            --secondary: #3a7bd5;     /* Xanh biển */
-            --accent: #ff007a;        /* Hồng Neon điểm nhấn */
-            --bg-dark: #0f172a;       /* Nền xanh đen sâu */
-            --bg-card: #1e293b;       /* Nền khối */
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
-            --gradient-btn: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
-        }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(135deg, #0c0c1d 0%, #1a1a3e 50%, #2d1b69 100%);
+  min-height: 100vh;
+  color: #fff;
+  overflow-x: hidden;
+}
 
-        /* Thanh cuộn tùy chỉnh */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 5px; }
+.stars {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+  background: radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+              radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+              radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+              radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+              radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+  background-size: 200px 100px;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+@keyframes twinkle { 0% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* --- HEADER / NAV --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px); /* Kính mờ */
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
-        .nav-links a { margin-left: 30px; text-decoration: none; color: var(--text-light); font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
-        
-        .btn-nav {
-            padding: 10px 25px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-        .btn-nav:hover { background: var(--primary); color: #fff; box-shadow: 0 0 15px var(--primary); }
+header {
+  position: relative; z-index: 1;
+  text-align: center; padding: 40px 20px 20px;
+}
+header h1 {
+  font-size: 2.2em; font-weight: 700;
+  background: linear-gradient(90deg, #FFD700, #FF6B6B, #4ECDC4, #A18CD1);
+  background-size: 300% 300%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: gradientShift 5s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+header p { color: #aaa; margin-top: 8px; font-size: 1em; }
+.stats {
+  display: flex; justify-content: center; gap: 20px; margin-top: 15px; flex-wrap: wrap;
+}
+.stat-badge {
+  background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 20px;
+  padding: 8px 18px; font-size: 0.85em;
+}
 
-        /* --- HERO SECTION (PHẦN MỞ ĐẦU) --- */
-        header {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-            position: relative;
-        }
-        /* Hiệu ứng nền lưới */
-        header::before {
-            content: '';
-            position: absolute;
-            width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.3;
-        }
+.search-box {
+  position: relative; z-index: 1;
+  max-width: 500px; margin: 25px auto 10px; padding: 0 20px;
+}
+.search-box input {
+  width: 100%; padding: 14px 20px 14px 45px;
+  border-radius: 50px; border: 2px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(10px);
+  color: #fff; font-size: 1em; font-family: 'Quicksand', sans-serif;
+  outline: none; transition: all 0.3s;
+}
+.search-box input::placeholder { color: rgba(255,255,255,0.4); }
+.search-box input:focus { border-color: #4ECDC4; background: rgba(255,255,255,0.12); }
+.search-icon {
+  position: absolute; left: 35px; top: 50%; transform: translateY(-50%);
+  font-size: 1.2em; opacity: 0.5;
+}
 
-        .hero-content { z-index: 10; padding: 0 20px; }
-        .badge {
-            display: inline-block;
-            padding: 8px 16px;
-            background: rgba(0, 210, 255, 0.1);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            border: 1px solid var(--primary);
-        }
-        h1 {
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero-desc { font-size: 1.2rem; color: var(--text-gray); max-width: 600px; margin: 0 auto 40px; }
-        
-        .btn-group { display: flex; justify-content: center; gap: 20px; }
-        .btn-primary {
-            padding: 15px 40px;
-            background: var(--gradient-btn);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3); }
-        .btn-outline {
-            padding: 15px 40px;
-            background: transparent;
-            border: 2px solid rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+.container {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto; padding: 20px;
+}
 
-        /* --- DASHBOARD GRID (CÁC KHỐI NỘI DUNG) --- */
-        .container { max-width: 1200px; margin: 100px auto; padding: 0 20px; }
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            border-left: 5px solid var(--accent);
-            padding-left: 20px;
-        }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
 
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
+.card {
+  background: rgba(255,255,255,0.07); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 20px; text-align: center;
+  cursor: pointer; transition: all 0.3s ease;
+  position: relative; overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.3);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+.card .avatar {
+  width: 70px; height: 70px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px; font-size: 1.6em; font-weight: 700;
+  color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.card .name { font-weight: 700; font-size: 1em; margin-bottom: 4px; }
+.card .mshv { font-size: 0.75em; color: rgba(255,255,255,0.5); }
+.card .badge {
+  display: inline-block; margin-top: 8px; padding: 3px 10px;
+  border-radius: 10px; font-size: 0.7em; font-weight: 600;
+}
+.badge-nam { background: rgba(78,205,196,0.2); color: #4ECDC4; }
+.badge-nu { background: rgba(250,112,154,0.2); color: #FA709A; }
 
-        /* Thiết kế từng Khối (Card) */
-        .card {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.4s;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        /* Hiệu ứng nền mờ trong card */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
-            opacity: 0;
-            transition: 0.5s;
-        }
-        .card:hover::before { opacity: 1; }
+/* Modal / Detail View */
+.overlay {
+  display: none; position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: 100;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+  justify-content: center; align-items: center;
+}
+.overlay.active { display: flex; }
+.detail {
+  background: linear-gradient(145deg, #1e1e3f, #2a2a5a);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 24px; padding: 40px; max-width: 550px; width: 90%;
+  position: relative; animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.detail .close-btn {
+  position: absolute; top: 15px; right: 20px;
+  font-size: 1.5em; cursor: pointer; opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.detail .close-btn:hover { opacity: 1; }
+.detail .avatar-lg {
+  width: 100px; height: 100px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px; font-size: 2.5em; font-weight: 700;
+  color: #fff;
+}
+.detail h2 { text-align: center; font-size: 1.5em; margin-bottom: 5px; }
+.detail .subtitle { text-align: center; color: rgba(255,255,255,0.5); font-size: 0.85em; margin-bottom: 20px; }
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.info-item {
+  background: rgba(255,255,255,0.06); border-radius: 12px; padding: 12px;
+}
+.info-item.full { grid-column: 1 / -1; }
+.info-label { font-size: 0.7em; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.info-value { font-size: 0.95em; font-weight: 600; word-break: break-all; }
+.info-value a { color: #4ECDC4; text-decoration: none; }
+.info-value a:hover { text-decoration: underline; }
 
-        .icon-box {
-            width: 60px; height: 60px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        .card h3 { font-size: 1.5rem; margin-bottom: 15px; }
-        .card p { color: var(--text-gray); line-height: 1.6; margin-bottom: 20px; font-size: 0.95rem; }
-        .card-link {
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: bold;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .card-link:hover i { transform: translateX(5px); transition: 0.3s; }
+.back-link {
+  display: block; text-align: center; margin-top: 20px;
+  color: rgba(255,255,255,0.4); font-size: 0.8em;
+  cursor: pointer; transition: color 0.2s;
+}
+.back-link:hover { color: #fff; }
 
-        /* Card đặc biệt (Span 2 cột) */
-        .card-wide { grid-column: span 2; background: linear-gradient(135deg, #1e293b 0%, #243b55 100%); }
-        .card-accent { border: 1px solid var(--accent); }
-        .card-accent .icon-box { color: var(--accent); background: rgba(255, 0, 122, 0.1); }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 50px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 100px;
-            color: var(--text-gray);
-        }
-
-        /* Responsive Mobile */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .card-wide { grid-column: span 1; }
-            .btn-group { flex-direction: column; }
-        }
-    </style>
+footer {
+  position: relative; z-index: 1;
+  text-align: center; padding: 40px 20px;
+  color: rgba(255,255,255,0.3); font-size: 0.8em;
+}
+</style>
 </head>
 <body>
+<div class="stars"></div>
 
-    <nav>
-        <div class="logo"><i class="fa-solid fa-scale-balanced"></i> LUẬT TMĐT</div>
-        <div class="nav-links">
-            <button class="btn-nav">Tải tài liệu</button>
-        </div>
-    </nav>
+<header>
+  <h1>Lớp LHS-TTHS Ứng dụng K39</h1>
+  <p>Trường Đại học Luật TP. Hồ Chí Minh - ULAW 2025</p>
+  <div class="stats">
+    <span class="stat-badge">👥 48 học viên</span>
+    <span class="stat-badge">👨‍🎓 22 nam</span>
+    <span class="stat-badge">👩‍🎓 26 nữ</span>
+    <span class="stat-badge">📚 Luật Hình sự & TTHS</span>
+  </div>
+</header>
 
-    <header>
-        <div class="hero-content" data-aos="fade-up">
-            <span class="badge">Phiên bản 2026</span>
-            <h1>PHÁP LUẬT<br>THƯƠNG MẠI ĐIỆN TỬ</h1>
-            <p class="hero-desc">Hệ thống kiến thức pháp lý toàn diện, cập nhật mới nhất dành cho doanh nghiệp và cá nhân kinh doanh tại Việt Nam.</p>
-            <div class="btn-group">
-                <button class="btn-primary" onclick="document.getElementById('content-area').scrollIntoView({behavior: 'smooth'})">
-                    <i class="fa-solid fa-rocket"></i> Khám phá ngay
-                </button>
-                <button class="btn-outline">
-                    <i class="fa-brands fa-youtube"></i> Xem Video
-                </button>
-            </div>
-        </div>
-    </header>
+<div class="search-box">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="searchInput" placeholder="Tìm tên, mã số, SĐT..." oninput="filterCards()">
+</div>
 
-    <div class="container" id="content-area">
-        <h2 class="section-title" data-aos="fade-right">Chủ đề trọng tâm</h2>
-        
-        <div class="bento-grid">
-            
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon-box"><i class="fa-solid fa-gavel"></i></div>
-                <h3>Văn bản Pháp luật</h3>
-                <p>Hệ thống luật nền tảng: Luật Giao dịch điện tử 2023, Luật Bảo vệ quyền lợi người tiêu dùng, Luật An ninh mạng.</p>
-                <a href="#" class="card-link">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
+<div class="container">
+  <div class="grid" id="studentGrid"></div>
+</div>
 
-            <div class="card card-wide card-accent" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3 style="color: var(--accent)">Bảo vệ Dữ liệu Cá nhân (NĐ 13)</h3>
-                <p>Quy định khắt khe nhất hiện nay về việc thu thập, xử lý dữ liệu khách hàng. Doanh nghiệp bắt buộc phải có sự ĐỒNG Ý của người dùng.</p>
-                <button class="btn-nav" style="width: fit-content; border-color: var(--accent); color: var(--accent);">Tìm hiểu ngay</button>
-            </div>
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeDetail()">
+  <div class="detail" id="detailPanel"></div>
+</div>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box"><i class="fa-solid fa-store"></i></div>
-                <h3>Trách nhiệm Sàn</h3>
-                <p>Nghị định 85/2021: Sàn phải công khai thông tin người bán, lọc hàng giả và chịu trách nhiệm liên đới.</p>
-                <a href="#" class="card-link">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
+<footer>
+  Lớp trưởng: Nguyễn Tấn Phong · Ngành: Luật Hình sự và Tố tụng Hình sự · Định hướng: Ứng dụng<br>
+  Niên khóa 2025 · Trường Đại học Luật TP.HCM
+</footer>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="400">
-                <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
-                <h3>Nghĩa vụ Thuế</h3>
-                <p>Quy định về việc Sàn TMĐT khai thay, nộp thay thuế cho cá nhân kinh doanh (NĐ 91/2022).</p>
-                <a href="#" class="card-link">Xem biểu thuế <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
+<script>
+const students = [{"stt": 317, "ma_hs": "25CH217", "ho_ten": "Nguyễn Duy An", "ho_lot": "Nguyễn Duy", "ten": "An", "gt": "Nam", "ns": "13/02/1978", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420317", "sdt": "0923907777", "email": "Nguyenduyan@gmail.com", "to": "2"}, {"stt": 318, "ma_hs": "25CH388", "ho_ten": "Nguyễn Thế Anh", "ho_lot": "Nguyễn Thế", "ten": "Anh", "gt": "Nam", "ns": "29/10/1991", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420318", "sdt": "", "email": "25390420364@email.hcmulaw.edu.vn", "to": "2"}, {"stt": 319, "ma_hs": "25CH389", "ho_ten": "Trịnh Hoàng Vân Anh", "ho_lot": "Trịnh Hoàng Vân", "ten": "Anh", "gt": "Nữ", "ns": "05/11/2000", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420319", "sdt": "0966106187", "email": "25390420319@email.hcmulaw.edu.vn", "to": "2"}, {"stt": 320, "ma_hs": "25CH390", "ho_ten": "Lê Thị Ngọc Ánh", "ho_lot": "Lê Thị Ngọc", "ten": "Ánh", "gt": "Nữ", "ns": "29/04/1999", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420320", "sdt": "0398357626", "email": "Ngocanh.dks00@gmail.com", "to": "5"}, {"stt": 321, "ma_hs": "25CH392", "ho_ten": "Nguyễn Trần Cẩm Châu", "ho_lot": "Nguyễn Trần Cẩm", "ten": "Châu", "gt": "Nữ", "ns": "15/04/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420321", "sdt": "", "email": "trannguyenchaucam@gmail.com", "to": "6"}, {"stt": 322, "ma_hs": "25CH393", "ho_ten": "Tạ Quốc Dũng", "ho_lot": "Tạ Quốc", "ten": "Dũng", "gt": "Nam", "ns": "06/04/1995", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420322", "sdt": "", "email": "25390420322@email.hcmulaw.edu.vn", "to": "4"}, {"stt": 323, "ma_hs": "25CH394", "ho_ten": "Nguyễn Ngọc Giang", "ho_lot": "Nguyễn Ngọc", "ten": "Giang", "gt": "Nam", "ns": "29/03/2000", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420323", "sdt": "", "email": "", "to": ""}, {"stt": 324, "ma_hs": "25CH396", "ho_ten": "Dương Bảo Hân", "ho_lot": "Dương Bảo", "ten": "Hân", "gt": "Nữ", "ns": "17/12/2002", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420324", "sdt": "0913975587", "email": "duonghan322@gmail.com", "to": "4"}, {"stt": 325, "ma_hs": "25CH397", "ho_ten": "Phan Nguyễn Bảo Hân", "ho_lot": "Phan Nguyễn Bảo", "ten": "Hân", "gt": "Nữ", "ns": "15/10/2003", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420325", "sdt": "", "email": "", "to": ""}, {"stt": 326, "ma_hs": "25CH398", "ho_ten": "Nguyễn Lê Khánh Hằng", "ho_lot": "Nguyễn Lê Khánh", "ten": "Hằng", "gt": "Nữ", "ns": "26/10/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420326", "sdt": "0982003225", "email": "nglee.khanhhang@gmail.com", "to": "5"}, {"stt": 327, "ma_hs": "25CH399", "ho_ten": "Ngô Phương Hòa", "ho_lot": "Ngô Phương", "ten": "Hòa", "gt": "Nữ", "ns": "03/05/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420327", "sdt": "0339452100", "email": "25390420327@email.hcmulaw.edu.vn", "to": "1"}, {"stt": 328, "ma_hs": "25CH400", "ho_ten": "Võ Thu Hoài", "ho_lot": "Võ Thu", "ten": "Hoài", "gt": "Nữ", "ns": "15/03/1989", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420328", "sdt": "", "email": "", "to": ""}, {"stt": 329, "ma_hs": "25CH402", "ho_ten": "Trương Minh Hoàng", "ho_lot": "Trương Minh", "ten": "Hoàng", "gt": "Nam", "ns": "10/02/1996", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420329", "sdt": "0909979759", "email": "hoangbi102199x@gmail.com", "to": "2"}, {"stt": 330, "ma_hs": "25CH403", "ho_ten": "Mai Lê Thiên Hương", "ho_lot": "Mai Lê Thiên", "ten": "Hương", "gt": "Nữ", "ns": "12/10/1985", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420330", "sdt": "", "email": "", "to": ""}, {"stt": 331, "ma_hs": "25CH404", "ho_ten": "Trịnh Lương Tuấn Khải", "ho_lot": "Trịnh Lương Tuấn", "ten": "Khải", "gt": "Nam", "ns": "09/09/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420331", "sdt": "0352770991", "email": "25390420331@email.hcmulaw.edu.vn", "to": "2"}, {"stt": 332, "ma_hs": "25CH406", "ho_ten": "Đinh Lê Hoàng Khoa", "ho_lot": "Đinh Lê Hoàng", "ten": "Khoa", "gt": "Nam", "ns": "27/02/2002", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420332", "sdt": "", "email": "", "to": ""}, {"stt": 333, "ma_hs": "25CH407", "ho_ten": "Phạm Đăng Khoa", "ho_lot": "Phạm Đăng", "ten": "Khoa", "gt": "Nam", "ns": "08/02/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420333", "sdt": "0932606920", "email": "phamdk0308@gmail.com", "to": "6"}, {"stt": 334, "ma_hs": "25CH408", "ho_ten": "Trần Đức Đăng Khương", "ho_lot": "Trần Đức Đăng", "ten": "Khương", "gt": "Nam", "ns": "14/10/1989", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420334", "sdt": "", "email": "25390420334@email.hcmulaw.edu.vn", "to": "4"}, {"stt": 335, "ma_hs": "25CH409", "ho_ten": "Triệu Thuỳ Linh", "ho_lot": "Triệu Thuỳ", "ten": "Linh", "gt": "Nữ", "ns": "18/6/2000", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420335", "sdt": "0868692915", "email": "25390420335@email.hcmulaw.edu.vn", "to": "3"}, {"stt": 336, "ma_hs": "25CH410", "ho_ten": "Đỗ Văn Luận", "ho_lot": "Đỗ Văn", "ten": "Luận", "gt": "Nam", "ns": "30/03/1993", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420336", "sdt": "0902555594", "email": "lsdovanluan@gmail.com", "to": "1"}, {"stt": 337, "ma_hs": "25CH411", "ho_ten": "Nguyễn Trường Luật", "ho_lot": "Nguyễn Trường", "ten": "Luật", "gt": "Nam", "ns": "03/12/1991", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420337", "sdt": "0338388879", "email": "Luatnt0425@gmail.com", "to": "1"}, {"stt": 338, "ma_hs": "25CH412", "ho_ten": "Nguyễn Yến Ly", "ho_lot": "Nguyễn Yến", "ten": "Ly", "gt": "Nữ", "ns": "15/07/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420338", "sdt": "0347335233", "email": "nguyenyenly1507@gmail.com", "to": "5"}, {"stt": 339, "ma_hs": "25CH413", "ho_ten": "Hoàng Lê Minh", "ho_lot": "Hoàng Lê", "ten": "Minh", "gt": "Nam", "ns": "15/12/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420339", "sdt": "0984786161", "email": "honglminh1512@gmail.com", "to": "4"}, {"stt": 340, "ma_hs": "25CH414", "ho_ten": "Nguyễn Thị Thuý Ngân", "ho_lot": "Nguyễn Thị Thuý", "ten": "Ngân", "gt": "Nữ", "ns": "22/12/1995", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420340", "sdt": "0327225466", "email": "ng.ngan1295@gmail.com", "to": "2"}, {"stt": 341, "ma_hs": "25CH415", "ho_ten": "Lê Thanh Nhã", "ho_lot": "Lê Thanh", "ten": "Nhã", "gt": "Nam", "ns": "22/06/1999", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420341", "sdt": "0358261739", "email": "lethanhnha2206@gmail.com", "to": "5"}, {"stt": 342, "ma_hs": "25CH416", "ho_ten": "Nguyễn Bá Nhật", "ho_lot": "Nguyễn Bá", "ten": "Nhật", "gt": "Nam", "ns": "14/02/2002", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420342", "sdt": "0339536697", "email": "banhat1402@gmail.com", "to": "1"}, {"stt": 343, "ma_hs": "25CH417", "ho_ten": "Đinh Yến Nhi", "ho_lot": "Đinh Yến", "ten": "Nhi", "gt": "Nữ", "ns": "25/05/1996", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420343", "sdt": "0349688889", "email": "25390420343@email.hcmulaw.edu.vn", "to": "3"}, {"stt": 344, "ma_hs": "25CH418", "ho_ten": "Nguyễn Tấn Phong", "ho_lot": "Nguyễn Tấn", "ten": "Phong", "gt": "Nam", "ns": "30/08/1981", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420344", "sdt": "", "email": "25390420344@email.hcmulaw.edu.vn", "to": "6"}, {"stt": 345, "ma_hs": "25CH419", "ho_ten": "Lê Nguyễn Hồng Phúc", "ho_lot": "Lê Nguyễn Hồng", "ten": "Phúc", "gt": "Nữ", "ns": "10/11/1995", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420345", "sdt": "0979622257", "email": "lnhphuc10@gmail.com", "to": "4"}, {"stt": 346, "ma_hs": "25CH421", "ho_ten": "Phạm Thị Mỹ Phương", "ho_lot": "Phạm Thị Mỹ", "ten": "Phương", "gt": "Nữ", "ns": "19/06/2003", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420346", "sdt": "0943168417", "email": "phuongmy857@gmail.com", "to": "3"}, {"stt": 347, "ma_hs": "25CH422", "ho_ten": "Tạ Nam Phương", "ho_lot": "Tạ Nam", "ten": "Phương", "gt": "Nữ", "ns": "08/04/1998", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420347", "sdt": "", "email": "25390420347@email.hcmulaw.edu.vn", "to": "4"}, {"stt": 348, "ma_hs": "25CH423", "ho_ten": "Trần Ngọc Hoàng Quân", "ho_lot": "Trần Ngọc Hoàng", "ten": "Quân", "gt": "Nam", "ns": "24/10/1999", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420348", "sdt": "0339660679", "email": "tnhquann@gmail.com", "to": "3"}, {"stt": 349, "ma_hs": "25CH424", "ho_ten": "Đặng Phương Quốc", "ho_lot": "Đặng Phương", "ten": "Quốc", "gt": "Nam", "ns": "22/10/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420349", "sdt": "0328169065", "email": "dangphuongquoc221001@gmail.com", "to": "5"}, {"stt": 350, "ma_hs": "25CH425", "ho_ten": "Lê Phương Quỳnh", "ho_lot": "Lê Phương", "ten": "Quỳnh", "gt": "Nữ", "ns": "28/02/1997", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420350", "sdt": "0908152479", "email": "25390420350@email.hcmulaw.edu.vn", "to": "1"}, {"stt": 351, "ma_hs": "25CH426", "ho_ten": "Trần Minh Sơn", "ho_lot": "Trần Minh", "ten": "Sơn", "gt": "Nam", "ns": "25/01/2000", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420351", "sdt": "0397269596", "email": "tranminhson1231@gmail.com", "to": "2"}, {"stt": 352, "ma_hs": "25CH428", "ho_ten": "Lê Trần Phương Thảo", "ho_lot": "Lê Trần Phương", "ten": "Thảo", "gt": "Nữ", "ns": "25/10/2001", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420352", "sdt": "0944719959", "email": "25390420352@email.hcmulaw.edu.vn", "to": "3"}, {"stt": 353, "ma_hs": "25CH429", "ho_ten": "Phan Phương Thảo", "ho_lot": "Phan Phương", "ten": "Thảo", "gt": "Nữ", "ns": "14/4/2000", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420353", "sdt": "0941098586", "email": "25390420353@email.hcmulaw.edu.vn", "to": "2"}, {"stt": 354, "ma_hs": "25CH431", "ho_ten": "Trương Thị Kim Thy", "ho_lot": "Trương Thị Kim", "ten": "Thy", "gt": "Nữ", "ns": "19/02/1998", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420354", "sdt": "", "email": "", "to": ""}, {"stt": 355, "ma_hs": "25CH432", "ho_ten": "Nguyễn Xuân Toàn", "ho_lot": "Nguyễn Xuân", "ten": "Toàn", "gt": "Nam", "ns": "28/02/1993", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420355", "sdt": "", "email": "", "to": ""}, {"stt": 356, "ma_hs": "25CH433", "ho_ten": "Ao Lê Kim Trân", "ho_lot": "Ao Lê Kim", "ten": "Trân", "gt": "Nữ", "ns": "26/05/2003", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420356", "sdt": "0329705451", "email": "253904203561@email.hcmulaw.edu.vn", "to": "3"}, {"stt": 357, "ma_hs": "25CH434", "ho_ten": "Lê Thu Trang", "ho_lot": "Lê Thu", "ten": "Trang", "gt": "Nữ", "ns": "01/02/2000", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420357", "sdt": "0848339798", "email": "thutrangshin12@gmail.com", "to": "5"}, {"stt": 358, "ma_hs": "25CH435", "ho_ten": "Nguyễn Ngọc Thuỳ Trang", "ho_lot": "Nguyễn Ngọc Thuỳ", "ten": "Trang", "gt": "Nữ", "ns": "02/09/2000", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420358", "sdt": "0913789796", "email": "thuytrang310800@gmail.com", "to": "5"}, {"stt": 359, "ma_hs": "25CH436", "ho_ten": "Trần Linh Vũ", "ho_lot": "Trần Linh", "ten": "Vũ", "gt": "Nam", "ns": "26/03/1988", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420359", "sdt": "0938882233", "email": "nvduy246@gmail.com", "to": "6"}, {"stt": 360, "ma_hs": "25CH574", "ho_ten": "Nguyễn Hoàng Ân", "ho_lot": "Nguyễn Hoàng", "ten": "Ân", "gt": "Nam", "ns": "28/10/1993", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420360", "sdt": "0939091009", "email": "25390420360@email.hcmulaw.edu.vn", "to": "3"}, {"stt": 361, "ma_hs": "25CH609", "ho_ten": "Bùi Thị Kiều", "ho_lot": "Bùi Thị", "ten": "Kiều", "gt": "Nữ", "ns": "05/05/2002", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420361", "sdt": "0905224445", "email": "kieubuith.05@gmail.com", "to": "4"}, {"stt": 362, "ma_hs": "25CH718", "ho_ten": "Nguyễn Thuỳ Dương", "ho_lot": "Nguyễn Thuỳ", "ten": "Dương", "gt": "Nữ", "ns": "05/11/1977", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420362", "sdt": "", "email": "", "to": ""}, {"stt": 363, "ma_hs": "25CH721", "ho_ten": "Nguyễn Đỗ Như Quyên", "ho_lot": "Nguyễn Đỗ Như", "ten": "Quyên", "gt": "Nữ", "ns": "11/10/1990", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420363", "sdt": "0909450776", "email": "25390420363@email.hcmulaw.edu.vn", "to": "6"}, {"stt": 364, "ma_hs": "25CH725", "ho_ten": "Trịnh Cần Đức", "ho_lot": "Trịnh Cần", "ten": "Đức", "gt": "Nam", "ns": "15/08/1999", "nganh": "8380104- Luật Hình sự và Tố tụng Hình sự", "dinh_huong": "Ứng dụng", "mshv": "25390420364", "sdt": "0384500711", "email": "25390420364@email.hcmulaw.edu.vn", "to": "1"}];
 
-            <div class="card" data-aos="fade-up" data-aos-delay="500">
-                <div class="icon-box"><i class="fa-solid fa-file-signature"></i></div>
-                <h3>Hợp đồng điện tử</h3>
-                <p>Giá trị pháp lý của chữ ký số, OTP, xác thực sinh trắc học trong giao kết hợp đồng online.</p>
-                <a href="#" class="card-link">Quy trình ký <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
+const colors = [["#FF6B6B", "#FFE66D"], ["#4ECDC4", "#556270"], ["#FC5C7D", "#6A82FB"], ["#43E97B", "#38F9D7"], ["#FA709A", "#FEE140"], ["#A18CD1", "#FBC2EB"], ["#FDDB92", "#D1FDFF"], ["#F6D365", "#FDA085"], ["#84FAB0", "#8FD3F4"], ["#CFD9DF", "#E2EBF0"], ["#667EEA", "#764BA2"], ["#FFECD2", "#FCB69F"], ["#FF9A9E", "#FECFEF"], ["#A1C4FD", "#C2E9FB"], ["#D4FC79", "#96E6A1"], ["#FDFC47", "#24FE41"], ["#89F7FE", "#66A6FF"], ["#FDDB92", "#D1FDFF"], ["#A6C0FE", "#F68084"], ["#FCCB90", "#D57EEB"], ["#E0C3FC", "#8EC5FC"], ["#F093FB", "#F5576C"], ["#4FACFE", "#00F2FE"], ["#43E97B", "#38F9D7"]];
+const emojis_m = ["\ud83d\ude0e", "\ud83e\uddd1\u200d\ud83d\udcbc", "\ud83e\udd13", "\ud83d\udc68\u200d\u2696\ufe0f", "\ud83e\uddd1\u200d\ud83c\udf93", "\ud83d\udcaa", "\ud83c\udfc3\u200d\u2642\ufe0f", "\ud83c\udfaf"];
+const emojis_f = ["\ud83d\udc69\u200d\ud83d\udcbc", "\ud83d\udc83", "\ud83c\udf38", "\ud83d\udc69\u200d\u2696\ufe0f", "\ud83d\udc69\u200d\ud83c\udf93", "\u2728", "\ud83c\udf3a", "\ud83c\udf80"];
 
-            <div class="card" data-aos="fade-up" data-aos-delay="600">
-                <div class="icon-box"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                <h3>Chế tài Xử phạt</h3>
-                <p>Các mức phạt vi phạm hành chính trong lĩnh vực TMĐT, quảng cáo sai sự thật và hàng giả.</p>
-                <a href="#" class="card-link">Tra cứu mức phạt <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
+function getInitials(name) {
+  const parts = name.split(' ');
+  if (parts.length >= 2) return parts[parts.length-2][0] + parts[parts.length-1][0];
+  return name[0];
+}
 
-        </div>
+function getEmoji(gt, i) {
+  return gt === 'Nam' ? emojis_m[i % emojis_m.length] : emojis_f[i % emojis_f.length];
+}
+
+function getColor(i) {
+  const c = colors[i % colors.length];
+  return `linear-gradient(135deg, ${c[0]}, ${c[1]})`;
+}
+
+function renderGrid(list) {
+  const grid = document.getElementById('studentGrid');
+  grid.innerHTML = '';
+  list.forEach((s, i) => {
+    const idx = students.indexOf(s);
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = s.mshv;
+    card.onclick = () => showDetail(s.mshv);
+    const badgeClass = s.gt === 'Nam' ? 'badge-nam' : 'badge-nu';
+    card.innerHTML = `
+      <div class="avatar" style="background:${getColor(idx)}">${getEmoji(s.gt, idx)}</div>
+      <div class="name">${s.ho_ten}</div>
+      <div class="mshv">${s.mshv}</div>
+      <span class="badge ${badgeClass}">${s.gt}</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function showDetail(mshv) {
+  const s = students.find(x => x.mshv === mshv);
+  if (!s) return;
+  const idx = students.indexOf(s);
+  const panel = document.getElementById('detailPanel');
+  
+  let phoneHtml = s.sdt ? `<a href="tel:${s.sdt}">${s.sdt.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3')}</a>` : '<span style="opacity:0.3">Chưa cập nhật</span>';
+  let emailHtml = s.email ? `<a href="mailto:${s.email}">${s.email}</a>` : '<span style="opacity:0.3">Chưa cập nhật</span>';
+  let toHtml = s.to ? `Tổ ${s.to}` : '<span style="opacity:0.3">—</span>';
+  
+  panel.innerHTML = `
+    <div class="close-btn" onclick="closeDetail()">✕</div>
+    <div class="avatar-lg" style="background:${getColor(idx)}">${getEmoji(s.gt, idx)}</div>
+    <h2>${s.ho_ten}</h2>
+    <div class="subtitle">${s.mshv} · ${s.ma_hs}</div>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">📅 Ngày sinh</div>
+        <div class="info-value">${s.ns}</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">${s.gt === 'Nam' ? '👨' : '👩'} Giới tính</div>
+        <div class="info-value">${s.gt}</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">📞 Điện thoại</div>
+        <div class="info-value">${phoneHtml}</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">👥 Tổ</div>
+        <div class="info-value">${toHtml}</div>
+      </div>
+      <div class="info-item full">
+        <div class="info-label">📧 Email</div>
+        <div class="info-value">${emailHtml}</div>
+      </div>
+      <div class="info-item full">
+        <div class="info-label">📚 Ngành đào tạo</div>
+        <div class="info-value">${s.nganh}</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">🎯 Định hướng</div>
+        <div class="info-value">${s.dinh_huong}</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">🏫 Mã hồ sơ</div>
+        <div class="info-value">${s.ma_hs}</div>
+      </div>
     </div>
+    <div class="back-link" onclick="closeDetail()">← Quay về danh sách</div>
+  `;
+  document.getElementById('overlay').classList.add('active');
+  history.pushState(null, '', '#' + mshv);
+}
 
-    <footer>
-        <p style="font-size: 1.2rem; margin-bottom: 10px; font-weight: bold;">CHÚ PHONG LEGAL</p>
-        <p>© 2026 Bản quyền thuộc về Chú Phong. Thiết kế cho mục đích đào tạo.</p>
-        <div style="margin-top: 20px; font-size: 1.5rem;">
-            <i class="fa-brands fa-facebook" style="margin: 0 10px; cursor: pointer;"></i>
-            <i class="fa-brands fa-tiktok" style="margin: 0 10px; cursor: pointer;"></i>
-            <i class="fa-solid fa-envelope" style="margin: 0 10px; cursor: pointer;"></i>
-        </div>
-    </footer>
+function closeDetail() {
+  document.getElementById('overlay').classList.remove('active');
+  history.pushState(null, '', window.location.pathname);
+}
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Kích hoạt thư viện Animation
-        AOS.init({
-            duration: 1000, // Thời gian chạy hiệu ứng (ms)
-            once: true,     // Chỉ chạy 1 lần khi cuộn xuống
-        });
-    </script>
+function filterCards() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  if (!q) { renderGrid(students); return; }
+  const filtered = students.filter(s =>
+    s.ho_ten.toLowerCase().includes(q) ||
+    s.mshv.includes(q) ||
+    s.sdt.includes(q) ||
+    s.email.toLowerCase().includes(q) ||
+    s.ma_hs.toLowerCase().includes(q)
+  );
+  renderGrid(filtered);
+}
+
+// Handle hash navigation
+window.addEventListener('hashchange', () => {
+  const h = window.location.hash.slice(1);
+  if (h) showDetail(h); else closeDetail();
+});
+
+// Init
+renderGrid(students);
+if (window.location.hash) {
+  const h = window.location.hash.slice(1);
+  if (h) showDetail(h);
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDetail();
+});
+</script>
 </body>
 </html>
